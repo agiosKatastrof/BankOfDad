@@ -1,11 +1,14 @@
 <head>
-  <title>The Bank of Da</title>
+  <title>Todo List</title>
 </head>
  
 <body>
   <div class="container">
     <header>
-      <h1>The Bank of Dad</h1>
+      <h1>Todo List</h1>
+      <form class="new-task">
+        <input type="text" name="text" placeholder="Type to add new tasks" />
+      </form>
     </header>
  
     <ul>
@@ -15,7 +18,7 @@
     </ul>
   </div>
 </body>
-
+ 
 <template name="task">
-  <li>Hello, {{text}}</li>
+  <li>{{text}}</li>
 </template>
