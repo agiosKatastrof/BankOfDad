@@ -1,0 +1,21 @@
+<head>
+  <title>The Bank of Da</title>
+</head>
+ 
+<body>
+  <div class="container">
+    <header>
+      <h1>The Bank of Dad</h1>
+    </header>
+ 
+    <ul>
+      {{#each tasks}}
+        {{> task}}
+      {{/each}}
+    </ul>
+  </div>
+</body>
+
+<template name="task">
+  <li>Hello, {{text}}</li>
+</template>
