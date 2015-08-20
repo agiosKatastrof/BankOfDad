@@ -1,11 +1,15 @@
 <head>
-  <title>Todo List</title>
+  <title>The Bank of Dad</title>
 </head>
  
 <body>
   <div class="container">
     <header>
-      <h1>Todo List</h1>
+      <h1>The Bank of Dad</h1>
+      <label class="hide-completed">
+        <input type="checkbox" checked="{{hideCompleted}}"/>
+        Hide Completed Tasks
+      </label>
       <form class="new-task">
         <input type="text" name="text" placeholder="Type to add new tasks" />
       </form>

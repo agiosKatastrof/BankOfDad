@@ -24,6 +24,9 @@ if (Meteor.isClient) {
  
       // Clear form
       event.target.text.value = "";
+    },
+    "change .hide-completed input": function (event) {
+      Session.set("hideCompleted", event.target.checked);
     }
   });
   
@@ -35,6 +38,16 @@ if (Meteor.isClient) {
     },
     "click .delete": function() {
       Tasks.remove(this._id);
+    }
+  });
+  
+  Template.body.helpers({
+    tasks: function () {
+      if (Session.get("hideCompleted")) {
+        return Tasks.find({checked: {$ne: $true}}, {sort: {createdAt: -1}});
+      } else {
+        return Tasks.find({}, {sort: {createdAt: -1}});
+      }
     }
   })
 }
