@@ -41,6 +41,10 @@ if (Meteor.isClient) {
     }
   });
   
+  Accounts.ui.config({
+    passwordSignupFields: "USERNAME_ONLY"
+  });
+  
  Template.body.helpers({
     tasks: function () {
       if (Session.get("hideCompleted")) {
