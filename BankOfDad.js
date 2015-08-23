@@ -16,12 +16,14 @@ if (Meteor.isClient) {
       // Get value from form element
       var text = event.target.text.value;
  
-      // Insert a task into the collection
-      Tasks.insert({
+      // Insert a task into the collection 
+       Tasks.insert({
         text: text,
-        createdAt: new Date() // current time
+        createdAt: new Date(),            // current time
+        owner: Meteor.userId(),           // _id of logged in user
+        username: Meteor.user().username  // username of logged in user
       });
- 
+       
       // Clear form
       event.target.text.value = "";
     },
