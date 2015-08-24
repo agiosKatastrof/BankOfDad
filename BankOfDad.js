@@ -1,13 +1,19 @@
+dad = {name: 'dad', id: "cKM3ENqak9wenR75W"}
 Changes = new Mongo.Collection("changes");
 
 if (Meteor.isServer) {
-  // Only publish changes that belong to the current user
   Meteor.publish("changes", function () {
-    return Changes.find({
-      $or: [
-        { owner: this.userId }
-      ]
-    });
+    console.log("userid: " + this.userId)
+    if (this.userId == dad.id) {
+        return Changes.find();
+    } else {
+        return Changes.find({
+          $or: [
+            { owner: this.userId }
+          ]
+        });
+    }
+
   });
 }
 
@@ -71,7 +77,7 @@ Meteor.methods({
   deleteTask: function (changeId) {
     var change = Changes.findOne(changeId);
     
-    if (Meteor.user().username !== 'dad' ) {
+    if (Meteor.user().username !== dad.name ) {
       console.log(Meteor.user().username + " cannot delete")
       throw new Meteor.Error("not-authorized");
     }
