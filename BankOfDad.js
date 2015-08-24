@@ -20,9 +20,6 @@ if (Meteor.isClient) {
   Template.body.helpers({
     changes: function () {
       return Tasks.find({}, {sort: {createdAt: -1}});
-    },
-    hideCompleted: function () {
-      return Session.get("hideCompleted");
     }
   });
 
