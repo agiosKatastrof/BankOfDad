@@ -8,6 +8,10 @@
       <h1>The Bank of Dad</h1>
 
       {{> loginButtons}}
+      
+      {{#if isAdmin}}
+        hello
+      {{/if}}
 
       {{#if currentUser}}
         <form class="new-change">

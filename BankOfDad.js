@@ -3,7 +3,7 @@ Changes = new Mongo.Collection("changes");
 
 if (Meteor.isServer) {
   Meteor.publish("changes", function () {
-    console.log("userid: " + this.userId)
+    //console.log("userid: " + this.userId)
     if (this.userId == dad.id) {
         return Changes.find();
     } else {
@@ -20,10 +20,14 @@ if (Meteor.isServer) {
 if (Meteor.isClient) {
   // This code only runs on the client
   Meteor.subscribe("changes");
+  
 
   Template.body.helpers({
     changes: function () {
       return Changes.find({}, {sort: {createdAt: -1}});
+    },
+    isAdmin: function () {
+      return Meteor.userId() === dad.id;
     }
   });
 
@@ -54,7 +58,7 @@ if (Meteor.isClient) {
       Meteor.call("deleteTask", this._id);
     }
   });
-
+  
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
   });
