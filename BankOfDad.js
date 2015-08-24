@@ -26,8 +26,6 @@ Accounts.config({
 
 if (Meteor.isServer) {
   Meteor.publish("changes", function () {
-    //console.log("userid: " + this.userId)
-    isAdmin(this.userId);
     
     if (isAdmin(this.userId)) {
         return Changes.find();
@@ -76,6 +74,9 @@ if (Meteor.isClient) {
   Template.change.helpers({
     isOwner: function () {
       return this.owner === Meteor.userId();
+    },
+    isAdmin: function () {
+      return isAdmin(Meteor.userId());
     }
   });
 

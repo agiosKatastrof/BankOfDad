@@ -35,7 +35,12 @@
 
 <template name="change">
   <li>
+    {{#if isAdmin}}
           <button class="delete">&times;</button>
           <span class="amount"><strong>${{amount}}</strong> | {{username}} | {{createdAt}}</span>
+    {{else}}
+          <span class="amount"><strong>${{amount}}</strong> | {{createdAt}}</span>
+    {{/if}}
+
   </li>
 </template>
