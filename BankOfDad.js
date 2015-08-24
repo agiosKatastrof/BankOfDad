@@ -1,12 +1,10 @@
 Tasks = new Mongo.Collection("changes");
 
 if (Meteor.isServer) {
-  // This code only runs on the server
-  // Only publish changes that are public or belong to the current user
+  // Only publish changes that belong to the current user
   Meteor.publish("changes", function () {
     return Tasks.find({
       $or: [
-        { private: {$ne: true} },
         { owner: this.userId }
       ]
     });
@@ -48,9 +46,6 @@ if (Meteor.isClient) {
   Template.change.events({
     "click .delete": function () {
       Meteor.call("deleteTask", this._id);
-    },
-    "click .toggle-private": function () {
-      Meteor.call("setPrivate", this._id, ! this.private);
     }
   });
 
@@ -75,21 +70,10 @@ Meteor.methods({
   },
   deleteTask: function (changeId) {
     var change = Tasks.findOne(changeId);
-    if (change.private && change.owner !== Meteor.userId()) {
-      // If the change is private, make sure only the owner can delete it
+    if (Meteor.userId() !== 'dad' ) {
       throw new Meteor.Error("not-authorized");
     }
 
     Tasks.remove(changeId);
-  },
-  setPrivate: function (changeId, setToPrivate) {
-    var change = Tasks.findOne(changeId);
-
-    // Make sure only the change owner can make a change private
-    if (change.owner !== Meteor.userId()) {
-      throw new Meteor.Error("not-authorized");
-    }
-
-    Tasks.update(changeId, { $set: { private: setToPrivate } });
   }
 });

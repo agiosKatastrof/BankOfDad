@@ -25,18 +25,8 @@
 </body>
 
 <template name="change">
-  <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
+  <li>
     <button class="delete">&times;</button>
-
-    {{#if isOwner}}
-      <button class="toggle-private">
-        {{#if private}}
-          Private
-        {{else}}
-          Public
-        {{/if}}
-      </button>
-    {{/if}}
 
     <span class="amount"><strong>{{username}}</strong> : {{amount}} {{createdAt}}</span>
   </li>

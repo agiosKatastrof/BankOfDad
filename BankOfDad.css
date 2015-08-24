@@ -89,19 +89,6 @@ li .amount {
   margin-left: 10px;
 }
 
-li.private {
-  background: #eee;
-  border-color: #ddd;
-}
-
-header .hide-completed {
-  float: right;
-}
-
-.toggle-private {
-  margin-left: 5px;
-}
-
 @media (max-width: 600px) {
   li {
     padding: 12px 15px;
