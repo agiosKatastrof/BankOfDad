@@ -8,9 +8,13 @@
       <h1>The Bank of Dad</h1>
 
       {{> loginButtons}}
-
+    <hr>
       {{#if currentUser}}
         {{#if isAdmin}}
+          {{#each sumTransactionsEachUser}}
+            <span>{{name}} : {{total}}</span><br>
+          {{/each}}                 
+    <hr>
           <form class="new-transaction">
             <select name="user">
               <option value='dad'>dad</option>
@@ -21,7 +25,7 @@
             </select>
             <input type="text" name="amount" placeholder="Add Amount" />
           </form>
-          {{sumTotalTransactionsEachUser}}
+
         {{else}}
           Total: {{sumTransactions}}
         {{/if}}

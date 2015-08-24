@@ -56,11 +56,23 @@ if (Meteor.isClient) {
       });
       return sum;
     },
-    sumTransactionsEachUser: function () {
+    sumTransactionsEachUser: function (sumUser) {
       var cursor = Transactions.find({});
+      var totalSum = {};
       cursor.forEach(function(transaction){
-      
+        if (totalSum[transaction.username]) {
+          totalSum[transaction.username] += transaction.amount;
+        } else {
+          totalSum[transaction.username] = transaction.amount;
+        }      
       });
+      console.log(totalSum);
+      return [
+        {name:"Jet", total: totalSum.Jet},
+        {name:"Elias", total: totalSum.Elias},
+        {name:"Lorien", total: totalSum.Lorien},
+        {name:"Galadriel", total: totalSum.Galadriel}
+      ]
     },
     isAdmin: function () {
       return isAdmin(Meteor.userId());
