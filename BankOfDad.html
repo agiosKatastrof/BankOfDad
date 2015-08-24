@@ -11,7 +11,7 @@
 
       {{#if currentUser}}
         {{#if isAdmin}}
-          <form class="new-change">
+          <form class="new-transaction">
             <select name="user">
               <option value='dad'>dad</option>
               <option value='Elias'>Elias</option>
@@ -21,28 +21,29 @@
             </select>
             <input type="text" name="amount" placeholder="Add Amount" />
           </form>
+          {{sumTotalTransactionsEachUser}}
         {{else}}
-          Total: {{sumChanges}}
+          Total: {{sumTransactions}}
         {{/if}}
       {{/if}}
       
     </header>
 
     <ul>
-      {{#each changes}}
-        {{> change}}
+      {{#each transactions}}
+        {{> transaction}}
       {{/each}}
     </ul>
   </div>
 </body>
 
-<template name="change">
+<template name="transaction">
   <li>
     {{#if isAdmin}}
           <button class="delete">&times;</button>
-          <span class="amount"><strong>${{amount}}</strong> | {{username}} | {{createdAt}}</span>
+          <span class="amount"><strong>${{amount}}</strong> | {{username}} | {{type}} | {{createdAt}}</span>
     {{else}}
-          <span class="amount"><strong>${{amount}}</strong> | {{createdAt}}</span>
+          <span class="amount"><strong>${{amount}}</strong> | {{type}} | {{createdAt}}</span>
     {{/if}}
 
   </li>

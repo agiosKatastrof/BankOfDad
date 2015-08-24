@@ -14,7 +14,7 @@ usersmapRev = {
   'Galadriel' : {id: "cdAq6ZMEfnB3H8TXS", admin: false}
 }
 
-Changes = new Mongo.Collection("changes");
+Transactions = new Mongo.Collection("transactions");
 
 function isAdmin(userId) {
   return usersmap[userId].admin;
@@ -25,12 +25,12 @@ Accounts.config({
 });
 
 if (Meteor.isServer) {
-  Meteor.publish("changes", function () {
+  Meteor.publish("transactions", function () {
     
     if (isAdmin(this.userId)) {
-        return Changes.find();
+        return Transactions.find();
     } else {
-        return Changes.find({
+        return Transactions.find({
           $or: [
             { owner: this.userId }
           ]
@@ -42,23 +42,23 @@ if (Meteor.isServer) {
 
 if (Meteor.isClient) {
   // This code only runs on the client
-  Meteor.subscribe("changes");
+  Meteor.subscribe("transactions");
   
   Template.body.helpers({
-    changes: function () {
-      return Changes.find({}, {sort: {createdAt: -1}});
+    transactions: function () {
+      return Transactions.find({}, {sort: {createdAt: -1}});
     },
-    sumChanges: function () {
-      var cursor = Changes.find({});
+    sumTransactions: function () {
+      var cursor = Transactions.find({});
       sum = 0;
-      cursor.forEach(function(change){
-        sum += change.amount;
+      cursor.forEach(function(transaction){
+        sum += transaction.amount;
       });
       return sum;
     },
-    sumChangesEachUser: function () {
-      var cursor = Changes.find({});
-      cursor.forEach(function(change){
+    sumTransactionsEachUser: function () {
+      var cursor = Transactions.find({});
+      cursor.forEach(function(transaction){
       
       });
     },
@@ -68,7 +68,7 @@ if (Meteor.isClient) {
   });
 
   Template.body.events({
-    "submit .new-change": function (event) {
+    "submit .new-transaction": function (event) {
       // Prevent default browser form submit
       event.preventDefault();
 
@@ -76,15 +76,15 @@ if (Meteor.isClient) {
       var amount = event.target.amount.value;
       var user = event.target.user.value;
 
-      // Insert a change into the collection
-      Meteor.call("addChange", amount, user);
+      // Insert a transaction into the collection
+      Meteor.call("addTransaction", amount, user);
 
       // Clear form
       event.target.amount.value = "";
     }
   });
 
-  Template.change.helpers({
+  Template.transaction.helpers({
     isOwner: function () {
       return this.owner === Meteor.userId();
     },
@@ -93,9 +93,9 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.change.events({
+  Template.transaction.events({
     "click .delete": function () {
-      Meteor.call("deleteChange", this._id);
+      Meteor.call("deleteTransaction", this._id);
     }
   });
   
@@ -106,11 +106,11 @@ if (Meteor.isClient) {
 }
 
 Meteor.methods({
-  addChange: function (amount, user) {
+  addTransaction: function (amount, user) {
     
     console.log("User: " + user + ", Amount: " + amount);
     
-    // Make sure the user is logged in before inserting a change
+    // Make sure the user is logged in before inserting a transaction
     if (! Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
@@ -119,22 +119,23 @@ Meteor.methods({
       throw new Meteor.Error(amount + " is not a number");
     } else {
 
-      Changes.insert({
+      Transactions.insert({
         amount: Number(amount),
         createdAt: new Date(),
         owner: usersmapRev[user].id,
-        username: user
+        username: user,
+        type: "std"
       });
     }
   },
-  deleteChange: function (changeId) {
-    var change = Changes.findOne(changeId);
+  deleteTransaction: function (transactionId) {
+    var transaction = Transactions.findOne(transactionId);
     
     if (!isAdmin(Meteor.userId())) {
       console.log(Meteor.user().username + " cannot delete")
       throw new Meteor.Error("not-authorized");
     }
 
-    Changes.remove(changeId);
+    Transactions.remove(transactionId);
   }
 });
