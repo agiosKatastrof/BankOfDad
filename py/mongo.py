@@ -16,14 +16,12 @@ transaction = { 'username':'Jet',
                 'owner': 'gYzdjntuyqWHtGihL'
                 }
 
-db.transactions.insert_one(transaction).inserted_id
-
-
-
+#db.transactions.insert_one(transaction).inserted_id
 
 
 query = {'username':'Jet'}
 
+db.transactions.find(query)
 
 
 
