@@ -1,6 +1,11 @@
 dad = {name: 'dad', id: "cKM3ENqak9wenR75W"}
 Changes = new Mongo.Collection("changes");
 
+  
+Accounts.config({
+  forbidClientAccountCreation: true
+});
+
 if (Meteor.isServer) {
   Meteor.publish("changes", function () {
     //console.log("userid: " + this.userId)
@@ -66,6 +71,7 @@ if (Meteor.isClient) {
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
   });
+  
 }
 
 Meteor.methods({
@@ -86,6 +92,7 @@ Meteor.methods({
       Changes.insert({
         amount: amount,
         createdAt: new Date(),
+        owner: Meteor.userId(),
         username: user
       });
     }
