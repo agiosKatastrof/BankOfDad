@@ -70,7 +70,9 @@ Meteor.methods({
   },
   deleteTask: function (changeId) {
     var change = Tasks.findOne(changeId);
-    if (Meteor.userId() !== 'dad' ) {
+    
+    if (Meteor.user().username !== 'dad' ) {
+      console.log(Meteor.user().username + " cannot delete")
       throw new Meteor.Error("not-authorized");
     }
 
