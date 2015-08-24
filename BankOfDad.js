@@ -1,6 +1,10 @@
-dad = {name: 'dad', id: "cKM3ENqak9wenR75W"}
-
-usersmap = {"cKM3ENqak9wenR75W" : {name: 'dad', admin: true}}
+usersmap = {
+  "cKM3ENqak9wenR75W" : {name: 'dad', admin: true},
+  "9Nfyz49neNxDAhKKa" : {name: 'Jet', admin: false},
+  "hhy3c45Wei94pQ3iu" : {name: 'Elias', admin: false},
+  "AJdvgWqhvGpwc4vri" : {name: 'Lorien', admin: false},
+  "AJdvgWqhvGpwc4vri" : {name: 'Galadriel', admin: false}
+}
 
 Changes = new Mongo.Collection("changes");
 
@@ -108,7 +112,7 @@ Meteor.methods({
   deleteChange: function (changeId) {
     var change = Changes.findOne(changeId);
     
-    if (Meteor.user().username !== dad.name ) {
+    if (!isAdmin(Meteor.userId())) {
       console.log(Meteor.user().username + " cannot delete")
       throw new Meteor.Error("not-authorized");
     }
