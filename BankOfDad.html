@@ -8,16 +8,15 @@
       <h1>The Bank of Dad</h1>
 
       {{> loginButtons}}
-      
-      {{#if isAdmin}}
-        hello
-      {{/if}}
 
       {{#if currentUser}}
-        <form class="new-change">
-          <input type="amount" name="amount" placeholder="Type to add new changes" />
-        </form>
+        {{#if isAdmin}}
+          <form class="new-change">
+            <input type="amount" name="amount" placeholder="Type to add new changes" />
+          </form>
+        {{/if}}
       {{/if}}
+      
     </header>
 
     <ul>
@@ -30,8 +29,9 @@
 
 <template name="change">
   <li>
-    <button class="delete">&times;</button>
 
-    <span class="amount"><strong>{{username}}</strong> : {{amount}} {{createdAt}}</span>
+      <button class="delete">&times;</button>
+      <span class="amount"><strong>{{username}}</strong> | {{amount}} | {{createdAt}}</span>
+    
   </li>
 </template>

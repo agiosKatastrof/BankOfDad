@@ -50,6 +50,9 @@ if (Meteor.isClient) {
   Template.change.helpers({
     isOwner: function () {
       return this.owner === Meteor.userId();
+    },
+    isAdmin: function () {
+      return this.owner === dad.id;
     }
   });
 
@@ -70,13 +73,18 @@ Meteor.methods({
     if (! Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
+    
+    if (isNaN(amount)){
+      console.log(amount + " is not a number");
+    } else {
 
-    Changes.insert({
-      amount: amount,
-      createdAt: new Date(),
-      owner: Meteor.userId(),
-      username: Meteor.user().username
-    });
+      Changes.insert({
+        amount: amount,
+        createdAt: new Date(),
+        owner: Meteor.userId(),
+        username: Meteor.user().username
+      });
+    }
   },
   deleteTask: function (changeId) {
     var change = Changes.findOne(changeId);
