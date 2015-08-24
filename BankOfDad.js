@@ -67,12 +67,12 @@ if (Meteor.isClient) {
         }      
       });
       console.log(totalSum);
-      return [
-        {name:"Jet", total: totalSum.Jet},
-        {name:"Elias", total: totalSum.Elias},
-        {name:"Lorien", total: totalSum.Lorien},
-        {name:"Galadriel", total: totalSum.Galadriel}
-      ]
+      var totalSumArray = [];
+      
+      for (var u in totalSum) {
+        totalSumArray.push({name:u, total:totalSum[u]})
+      }
+      return totalSumArray;
     },
     isAdmin: function () {
       return isAdmin(Meteor.userId());
