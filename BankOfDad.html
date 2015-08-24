@@ -15,21 +15,21 @@
       {{> loginButtons}}
 
       {{#if currentUser}}
-        <form class="new-task">
-          <input type="text" name="text" placeholder="Type to add new tasks" />
+        <form class="new-change">
+          <input type="text" name="text" placeholder="Type to add new changes" />
         </form>
       {{/if}}
     </header>
 
     <ul>
-      {{#each tasks}}
-        {{> task}}
+      {{#each changes}}
+        {{> change}}
       {{/each}}
     </ul>
   </div>
 </body>
 
-<template name="task">
+<template name="change">
   <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
     <button class="delete">&times;</button>
 
@@ -45,6 +45,6 @@
       </button>
     {{/if}}
 
-    <span class="text"><strong>{{username}}</strong> - {{text}}</span>
+    <span class="text"><strong>{{username}}</strong> : {{text}}</span>
   </li>
 </template>
