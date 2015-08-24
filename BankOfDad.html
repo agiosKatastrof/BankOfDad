@@ -7,11 +7,6 @@
     <header>
       <h1>The Bank of Dad</h1>
 
-      <label class="hide-completed">
-        <input type="checkbox" checked="{{hideCompleted}}" />
-        Hide Completed Tasks
-      </label>
-
       {{> loginButtons}}
 
       {{#if currentUser}}
@@ -32,8 +27,6 @@
 <template name="change">
   <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
     <button class="delete">&times;</button>
-
-    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
 
     {{#if isOwner}}
       <button class="toggle-private">

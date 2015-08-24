@@ -89,14 +89,6 @@ li .amount {
   margin-left: 10px;
 }
 
-li.checked {
-  color: #888;
-}
-
-li.checked .amount {
-  amount-decoration: line-through;
-}
-
 li.private {
   background: #eee;
   border-color: #ddd;

@@ -19,19 +19,10 @@ if (Meteor.isClient) {
 
   Template.body.helpers({
     changes: function () {
-      if (Session.get("hideCompleted")) {
-        // If hide completed is checked, filter changes
-        return Tasks.find({checked: {$ne: true}}, {sort: {createdAt: -1}});
-      } else {
-        // Otherwise, return all of the changes
-        return Tasks.find({}, {sort: {createdAt: -1}});
-      }
+      return Tasks.find({}, {sort: {createdAt: -1}});
     },
     hideCompleted: function () {
       return Session.get("hideCompleted");
-    },
-    incompleteCount: function () {
-      return Tasks.find({checked: {$ne: true}}).count();
     }
   });
 
@@ -48,9 +39,6 @@ if (Meteor.isClient) {
 
       // Clear form
       event.target.amount.value = "";
-    },
-    "change .hide-completed input": function (event) {
-      Session.set("hideCompleted", event.target.checked);
     }
   });
 
@@ -61,10 +49,6 @@ if (Meteor.isClient) {
   });
 
   Template.change.events({
-    "click .toggle-checked": function () {
-      // Set the checked property to the opposite of its current value
-      Meteor.call("setChecked", this._id, ! this.checked);
-    },
     "click .delete": function () {
       Meteor.call("deleteTask", this._id);
     },
@@ -100,15 +84,6 @@ Meteor.methods({
     }
 
     Tasks.remove(changeId);
-  },
-  setChecked: function (changeId, setChecked) {
-    var change = Tasks.findOne(changeId);
-    if (change.private && change.owner !== Meteor.userId()) {
-      // If the change is private, make sure only the owner can check it off
-      throw new Meteor.Error("not-authorized");
-    }
-
-    Tasks.update(changeId, { $set: { checked: setChecked} });
   },
   setPrivate: function (changeId, setToPrivate) {
     var change = Tasks.findOne(changeId);
