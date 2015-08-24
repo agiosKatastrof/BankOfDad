@@ -38,12 +38,17 @@ if (Meteor.isClient) {
 
       // Get value from form element
       var amount = event.target.amount.value;
+      //var user = event.target.user.value;
+      user = 'jet';
+      
+      console.log("Event amount: " + amount + " user: " + user);
 
       // Insert a change into the collection
-      Meteor.call("addTask", amount);
+      Meteor.call("addChange", amount, user);
 
       // Clear form
       event.target.amount.value = "";
+     // event.target.user.value = "";
     }
   });
 
@@ -58,7 +63,7 @@ if (Meteor.isClient) {
 
   Template.change.events({
     "click .delete": function () {
-      Meteor.call("deleteTask", this._id);
+      Meteor.call("deleteChange", this._id);
     }
   });
   
@@ -68,7 +73,10 @@ if (Meteor.isClient) {
 }
 
 Meteor.methods({
-  addTask: function (amount) {
+  addChange: function (amount, user) {
+    
+    console.log("User: " + user + " Amount: " + amount);
+    
     // Make sure the user is logged in before inserting a change
     if (! Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
@@ -86,7 +94,7 @@ Meteor.methods({
       });
     }
   },
-  deleteTask: function (changeId) {
+  deleteChange: function (changeId) {
     var change = Changes.findOne(changeId);
     
     if (Meteor.user().username !== dad.name ) {
