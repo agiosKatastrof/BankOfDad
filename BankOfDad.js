@@ -1,7 +1,13 @@
 dad = {name: 'dad', id: "cKM3ENqak9wenR75W"}
+
+usersmap = {"cKM3ENqak9wenR75W" : {name: 'dad', admin: true}}
+
 Changes = new Mongo.Collection("changes");
 
-  
+function isAdmin(userId) {
+  return usersmap[userId].admin;
+}
+
 Accounts.config({
   forbidClientAccountCreation: true
 });
@@ -9,7 +15,9 @@ Accounts.config({
 if (Meteor.isServer) {
   Meteor.publish("changes", function () {
     //console.log("userid: " + this.userId)
-    if (this.userId == dad.id) {
+    isAdmin(this.userId);
+    
+    if (isAdmin(this.userId)) {
         return Changes.find();
     } else {
         return Changes.find({
@@ -32,7 +40,7 @@ if (Meteor.isClient) {
       return Changes.find({}, {sort: {createdAt: -1}});
     },
     isAdmin: function () {
-      return Meteor.userId() === dad.id;
+      return isAdmin(Meteor.userId());
     }
   });
 
