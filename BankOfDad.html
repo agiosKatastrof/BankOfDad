@@ -12,7 +12,13 @@
       {{#if currentUser}}
         {{#if isAdmin}}
           <form class="new-change">
-            <input type="text" name="amount" placeholder="New Amount" />
+            <select name="user">
+              <option value='Elias'>Elias</option>
+              <option value='Lorien'>Lorien</option>
+              <option value='Galadriel'>Galadriel</option>
+              <option value='Jet' selected="selected">Jet</option>
+            </select>
+            <input type="text" name="amount" placeholder=1.00 />
           </form>
         {{/if}}
       {{/if}}

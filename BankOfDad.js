@@ -38,17 +38,13 @@ if (Meteor.isClient) {
 
       // Get value from form element
       var amount = event.target.amount.value;
-      //var user = event.target.user.value;
-      user = 'jet';
-      
-      console.log("Event amount: " + amount + " user: " + user);
+      var user = event.target.user.value;
 
       // Insert a change into the collection
       Meteor.call("addChange", amount, user);
 
       // Clear form
       event.target.amount.value = "";
-     // event.target.user.value = "";
     }
   });
 
@@ -75,7 +71,7 @@ if (Meteor.isClient) {
 Meteor.methods({
   addChange: function (amount, user) {
     
-    console.log("User: " + user + " Amount: " + amount);
+    console.log("User: " + user + ", Amount: " + amount);
     
     // Make sure the user is logged in before inserting a change
     if (! Meteor.userId()) {
@@ -86,11 +82,11 @@ Meteor.methods({
       console.log(amount + " is not a number");
     } else {
 
+    console.log(Meteor.userId() + Meteor.user().username)
       Changes.insert({
         amount: amount,
         createdAt: new Date(),
-        owner: Meteor.userId(),
-        username: Meteor.user().username
+        username: user
       });
     }
   },
