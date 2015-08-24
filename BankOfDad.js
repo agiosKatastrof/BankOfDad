@@ -1,9 +1,17 @@
 usersmap = {
   "cKM3ENqak9wenR75W" : {name: 'dad', admin: true},
-  "9Nfyz49neNxDAhKKa" : {name: 'Jet', admin: false},
+  "gYzdjntuyqWHtGihL" : {name: 'Jet', admin: false},
   "hhy3c45Wei94pQ3iu" : {name: 'Elias', admin: false},
   "AJdvgWqhvGpwc4vri" : {name: 'Lorien', admin: false},
-  "AJdvgWqhvGpwc4vri" : {name: 'Galadriel', admin: false}
+  "cdAq6ZMEfnB3H8TXS" : {name: 'Galadriel', admin: false}
+}
+
+usersmapRev = {
+  'dad' : {id: "cKM3ENqak9wenR75W", admin: true},
+  'Jet' : {id: "gYzdjntuyqWHtGihL", admin: false},
+  'Elias' : {id: "hhy3c45Wei94pQ3iu", admin: false},
+  'Lorien' : {id: "AJdvgWqhvGpwc4vri", admin: false},
+  'Galadriel' : {id: "cdAq6ZMEfnB3H8TXS", admin: false}
 }
 
 Changes = new Mongo.Collection("changes");
@@ -68,9 +76,6 @@ if (Meteor.isClient) {
   Template.change.helpers({
     isOwner: function () {
       return this.owner === Meteor.userId();
-    },
-    isAdmin: function () {
-      return this.owner === dad.id;
     }
   });
 
@@ -100,11 +105,10 @@ Meteor.methods({
       console.log(amount + " is not a number");
     } else {
 
-    console.log(Meteor.userId() + Meteor.user().username)
       Changes.insert({
         amount: amount,
         createdAt: new Date(),
-        owner: Meteor.userId(),
+        owner: usersmapRev[user].id,
         username: user
       });
     }
