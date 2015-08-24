@@ -56,6 +56,12 @@ if (Meteor.isClient) {
       });
       return sum;
     },
+    sumChangesEachUser: function () {
+      var cursor = Changes.find({});
+      cursor.forEach(function(change){
+      
+      });
+    },
     isAdmin: function () {
       return isAdmin(Meteor.userId());
     }
@@ -110,7 +116,7 @@ Meteor.methods({
     }
     
     if (isNaN(amount)){
-      console.log(amount + " is not a number");
+      throw new Meteor.Error(amount + " is not a number");
     } else {
 
       Changes.insert({
