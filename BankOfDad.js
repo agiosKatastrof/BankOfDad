@@ -44,10 +44,17 @@ if (Meteor.isClient) {
   // This code only runs on the client
   Meteor.subscribe("changes");
   
-
   Template.body.helpers({
     changes: function () {
       return Changes.find({}, {sort: {createdAt: -1}});
+    },
+    sumChanges: function () {
+      var cursor = Changes.find({});
+      sum = 0;
+      cursor.forEach(function(change){
+        sum += change.amount;
+      });
+      return sum;
     },
     isAdmin: function () {
       return isAdmin(Meteor.userId());
@@ -107,7 +114,7 @@ Meteor.methods({
     } else {
 
       Changes.insert({
-        amount: amount,
+        amount: Number(amount),
         createdAt: new Date(),
         owner: usersmapRev[user].id,
         username: user
