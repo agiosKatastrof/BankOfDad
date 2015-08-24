@@ -1,9 +1,9 @@
-Tasks = new Mongo.Collection("changes");
+Changes = new Mongo.Collection("changes");
 
 if (Meteor.isServer) {
   // Only publish changes that belong to the current user
   Meteor.publish("changes", function () {
-    return Tasks.find({
+    return Changes.find({
       $or: [
         { owner: this.userId }
       ]
@@ -17,7 +17,7 @@ if (Meteor.isClient) {
 
   Template.body.helpers({
     changes: function () {
-      return Tasks.find({}, {sort: {createdAt: -1}});
+      return Changes.find({}, {sort: {createdAt: -1}});
     }
   });
 
@@ -61,7 +61,7 @@ Meteor.methods({
       throw new Meteor.Error("not-authorized");
     }
 
-    Tasks.insert({
+    Changes.insert({
       amount: amount,
       createdAt: new Date(),
       owner: Meteor.userId(),
@@ -69,13 +69,13 @@ Meteor.methods({
     });
   },
   deleteTask: function (changeId) {
-    var change = Tasks.findOne(changeId);
+    var change = Changes.findOne(changeId);
     
     if (Meteor.user().username !== 'dad' ) {
       console.log(Meteor.user().username + " cannot delete")
       throw new Meteor.Error("not-authorized");
     }
 
-    Tasks.remove(changeId);
+    Changes.remove(changeId);
   }
 });
