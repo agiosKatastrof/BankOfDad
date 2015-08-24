@@ -16,7 +16,7 @@
 
       {{#if currentUser}}
         <form class="new-change">
-          <input type="text" name="text" placeholder="Type to add new changes" />
+          <input type="amount" name="amount" placeholder="Type to add new changes" />
         </form>
       {{/if}}
     </header>
@@ -45,6 +45,6 @@
       </button>
     {{/if}}
 
-    <span class="text"><strong>{{username}}</strong> : {{text}}</span>
+    <span class="amount"><strong>{{username}}</strong> : {{amount}} {{createdAt}}</span>
   </li>
 </template>

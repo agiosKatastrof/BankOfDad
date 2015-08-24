@@ -85,7 +85,7 @@ li {
   border-bottom: #eee solid 1px;
 }
 
-li .text {
+li .amount {
   margin-left: 10px;
 }
 
@@ -93,8 +93,8 @@ li.checked {
   color: #888;
 }
 
-li.checked .text {
-  text-decoration: line-through;
+li.checked .amount {
+  amount-decoration: line-through;
 }
 
 li.private {
