@@ -14,15 +14,26 @@ usersmapRev = {
 }
 
 def doInterest(username,db,rate):
+    query = {"username": username}
+    
+    cursor = db.transactions.find(query)
+    
+    for transaction in cursor:
+      print transaction 
+    
+    cursor.close()
+    
     print username, " interest ", rate
-    transaction = { 'username':username,
+    '''
+    interest = { 'username':username,
                 'amount':amt,
                 'type':'offering',
                 'createdAt': datetime.datetime.now(),
                 'owner': usersmapRev[username]
                 }
-    
-    db.transactions.insert_one(transaction).inserted_id
+    '''
+    #db.transactions.insert_one(transaction).inserted_id
+
 
 
 print "Connecting..."
@@ -31,16 +42,10 @@ client = MongoClient('mongodb://nagisa:jetTheD0g@localhost:3001/meteor')
 db = client.meteor
 print "Connected to: ", db.client
 
-doOffering('Jet',db,rate)
-#doOffering('Lorien',db,rate)
-#doOffering('Galadriel',db,rate)
-#doOffering('Elias',db,rate)
-
-
-
-
-
-
+doInterest('Jet',db,rate)
+#doInterest('Lorien',db,rate)
+#doInterest('Galadriel',db,rate)
+#doInterest('Elias',db,rate)
 
 
 
