@@ -1,5 +1,6 @@
 /* CSS declarations go here */
-body {
+body,html {
+  cursor: url(bod_dollar.png), pointer;
   font-family: sans-serif;
   background-color: #315481;
   background-image: linear-gradient(to bottom, #315481, #918e82 100%);
