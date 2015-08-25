@@ -45,7 +45,7 @@ def doTotal(username,db,range):
 
 print "Connecting..."
 
-client = MongoClient('mongodb://nagisa:jetTheD0g@localhost:3001/meteor')
+client = MongoClient('mongodb://localhost:3001/meteor')
 db = client.meteor
 print "Connected to: ", db.client
 
