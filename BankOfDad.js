@@ -54,7 +54,7 @@ if (Meteor.isClient) {
       cursor.forEach(function(transaction){
         sum += transaction.amount;
       });
-      return sum;
+      return sum.toFixed(2);
     },
     sumTransactionsEachUser: function (sumUser) {
       var cursor = Transactions.find({});
