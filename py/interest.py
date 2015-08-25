@@ -2,7 +2,8 @@ import pymongo
 import datetime
 from pymongo import MongoClient
 
-duration = 30
+range = 30
+
 
 usersmapRev = {
   'dad' : "cKM3ENqak9wenR75W",
@@ -12,17 +13,25 @@ usersmapRev = {
   'Galadriel' : "cdAq6ZMEfnB3H8TXS"
 }
 
-def doDaily(username,db,duration):
+def doTotal(username,db,range):
+
+    #endT = datetime.datetime.now();
+    #span = datetime.timedelta(days=range);
+    #beginT = endT - span;
+
+    #query = {"username": username, "createdAt": { "$gt": beginT}};
     query = {"username": username}
-    
     cursor = db.transactions.find(query)
     
+    sum = 0
     for transaction in cursor:
-      print transaction[u'amount'] 
+      sum += transaction[u'amount'] 
+ 
+  
     
     cursor.close()
     
-    print username, " duration ", duration
+    print username, " sum ", sum
     '''
     interest = { 'username':username,
                 'amount':amt,
@@ -41,10 +50,10 @@ client = MongoClient('mongodb://nagisa:jetTheD0g@localhost:3001/meteor')
 db = client.meteor
 print "Connected to: ", db.client
 
-doDaily('Jet',db,duration)
-#doDaily('Lorien',db,duration)
-#doDaily('Galadriel',db,duration)
-#doDaily('Elias',db,duration)
+doTotal('Jet',db,range)
+#doTotal('Lorien',db,range)
+#doTotal('Galadriel',db,range)
+#doTotal('Elias',db,range)
 
 
 

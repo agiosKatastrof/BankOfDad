@@ -1,2 +1,8 @@
+# runs once a week, deduct offering
 30 5 * * 0 /Library/Frameworks/Python.framework/Versions/2.7/bin/python /Users/joecho/BankOfDad/py/offering.py
+#
+# runs once a month, adds interest
 30 6 1 * * /Library/Frameworks/Python.framework/Versions/2.7/bin/python /Users/joecho/BankOfDad/py/interest.py
+#
+# runs once a day, calculates daily sum
+30 7 * * * /Library/Frameworks/Python.framework/Versions/2.7/bin/python /Users/joecho/BankOfDad/py/daily.py
