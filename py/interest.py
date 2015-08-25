@@ -3,6 +3,7 @@ import datetime
 from pymongo import MongoClient
 
 range = 30
+rate = 0.0015
 
 
 usersmapRev = {
@@ -15,34 +16,32 @@ usersmapRev = {
 
 def doTotal(username,db,range):
 
-    #endT = datetime.datetime.now();
-    #span = datetime.timedelta(days=range);
-    #beginT = endT - span;
+    endT = datetime.datetime.now();
+    span = datetime.timedelta(days=range);
+    beginT = endT - span;
 
-    #query = {"username": username, "createdAt": { "$gt": beginT}};
-    query = {"username": username}
-    cursor = db.transactions.find(query)
+    query = {"username": username, "createdAt": { "$gt": beginT}};
+    cursor = db.sums.find(query)
     
-    sum = 0
+    sums = 0.0
+    n = 0
     for transaction in cursor:
-      sum += transaction[u'amount'] 
- 
-  
-    
+      sums += transaction[u'sum']
+      n += 1
     cursor.close()
     
-    print username, " sum ", sum
-    '''
-    interest = { 'username':username,
-                'amount':amt,
-                'type':'offering',
-                'createdAt': datetime.datetime.now(),
-                'owner': usersmapRev[username]
+    avg = sums/n
+    interest = float("{0:.2f}".format(avg*rate))
+    
+    print username, " sums ", sums, " n ", n, " avg ", avg, " interest ", interest
+    
+    transaction = {'username':username,
+                   'amount':interest,
+                   'type':'interest',
+                   'createdAt': datetime.datetime.now(),
+                   'owner': usersmapRev[username]
                 }
-    '''
-    #db.transactions.insert_one(transaction).inserted_id
-
-
+    db.transactions.insert_one(transaction).inserted_id
 
 print "Connecting..."
 
@@ -54,8 +53,6 @@ doTotal('Jet',db,range)
 #doTotal('Lorien',db,range)
 #doTotal('Galadriel',db,range)
 #doTotal('Elias',db,range)
-
-
 
 print "Exiting..."
 client.close()
