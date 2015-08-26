@@ -1,18 +1,13 @@
 import pymongo
 import datetime
 from pymongo import MongoClient
+import json
 
 range = 30
 rate = 0.0015
 
-
-usersmapRev = {
-  'dad' : "cKM3ENqak9wenR75W",
-  'Jet' : "gYzdjntuyqWHtGihL",
-  'Elias' : "hhy3c45Wei94pQ3iu",
-  'Lorien' : "AJdvgWqhvGpwc4vri",
-  'Galadriel' : "cdAq6ZMEfnB3H8TXS"
-}
+creds = open('private/usersmapRev.json').read()
+usersmapRev = json.loads(creds)
 
 def doTotal(username,db,range):
 
@@ -39,13 +34,17 @@ def doTotal(username,db,range):
                    'amount':interest,
                    'type':'interest',
                    'createdAt': datetime.datetime.now(),
-                   'owner': usersmapRev[username]
+                   'owner': usersmapRev[username]["id"]
                 }
     db.transactions.insert_one(transaction).inserted_id
 
 print "Connecting..."
 
-client = MongoClient('mongodb://nagisa:jetTheD0g@localhost:3001/meteor')
+creds = open('private/creds.json').read()
+j = json.loads(creds)
+
+dbstr = 'mongodb://' + j['user'] + ':' + j['pw'] + '@localhost:3001/meteor'
+client = MongoClient(dbstr)
 db = client.meteor
 print "Connected to: ", db.client
 

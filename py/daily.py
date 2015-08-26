@@ -25,7 +25,6 @@ print "Connecting..."
 
 creds = open('private/creds.json').read()
 j = json.loads(creds)
-print j['user']
 
 dbstr = 'mongodb://' + j['user'] + ':' + j['pw'] + '@localhost:3001/meteor'
 client = MongoClient(dbstr)
