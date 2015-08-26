@@ -163,12 +163,6 @@ Meteor.methods({
   },
   deleteTransaction: function (transactionId) {
     var transaction = Transactions.findOne(transactionId);
-    
-    if (!isAdmin(Meteor.userId())) {
-      console.log(Meteor.user().username + " cannot delete")
-      throw new Meteor.Error("not-authorized");
-    }
-
     Transactions.remove(transactionId);
   }
 });
