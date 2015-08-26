@@ -1,3 +1,5 @@
+//m = JSON.parse(Assets.getText("lib/usersmap.json"))
+
 usersmap = {
   "cKM3ENqak9wenR75W" : {name: 'dad', admin: true},
   "gYzdjntuyqWHtGihL" : {name: 'Jet', admin: false},
