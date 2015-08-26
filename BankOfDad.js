@@ -1,11 +1,3 @@
-usersmap = {
-  "cKM3ENqak9wenR75W" : {name: 'dad', admin: true},
-  "gYzdjntuyqWHtGihL" : {name: 'Jet', admin: false},
-  "hhy3c45Wei94pQ3iu" : {name: 'Elias', admin: false},
-  "AJdvgWqhvGpwc4vri" : {name: 'Lorien', admin: false},
-  "cdAq6ZMEfnB3H8TXS" : {name: 'Galadriel', admin: false}
-}
-
 Transactions = new Mongo.Collection("transactions");
 
 function checkAdmin(userId) {
