@@ -1,24 +1,16 @@
 import pymongo
 import datetime
 from pymongo import MongoClient
-
+import json
 
 def doTotal(username,db):
 
-    #endT = datetime.datetime.now();
-    #span = datetime.timedelta(days=range);
-    #beginT = endT - span;
-
-    #query = {"username": username, "createdAt": { "$gt": beginT}};
     query = {"username": username}
     cursor = db.transactions.find(query)
     
     sum = 0
     for transaction in cursor:
-      sum += transaction[u'amount'] 
- 
-  
-    
+      sum += transaction[u'amount']   
     cursor.close()
     
     print username, " sum ", sum
@@ -29,11 +21,14 @@ def doTotal(username,db):
           }
     db.sums.insert_one(sum).inserted_id
 
-
-
 print "Connecting..."
 
-client = MongoClient('mongodb://nagisa:jetTheD0g@localhost:3001/meteor')
+creds = open('private/creds.json').read()
+j = json.loads(creds)
+print j['user']
+
+dbstr = 'mongodb://' + j['user'] + ':' + j['pw'] + '@localhost:3001/meteor'
+client = MongoClient(dbstr)
 db = client.meteor
 print "Connected to: ", db.client
 
