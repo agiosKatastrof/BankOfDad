@@ -6,8 +6,8 @@ import json
 range = 30
 rate = 0.0015
 
-creds = open('private/usersmapRev.json').read()
-usersmapRev = json.loads(creds)
+umap = open('/home/joe/BankOfDad/private/usersmapRev.json').read()
+usersmapRev = json.loads(umap)
 
 def doTotal(username,db,range):
 
@@ -40,7 +40,7 @@ def doTotal(username,db,range):
 
 print "Connecting..."
 
-creds = open('private/creds.json').read()
+creds = open('/home/joe/BankOfDad/private/creds.json').read()
 j = json.loads(creds)
 
 dbstr = 'mongodb://' + j['user'] + ':' + j['pw'] + '@localhost:3001/meteor'
@@ -49,9 +49,9 @@ db = client.meteor
 print "Connected to: ", db.client
 
 doTotal('Jet',db,range)
-doTotal('Lorien',db,range)
-doTotal('Galadriel',db,range)
-doTotal('Elias',db,range)
+#doTotal('Lorien',db,range)
+#doTotal('Galadriel',db,range)
+#doTotal('Elias',db,range)
 
 print "Exiting..."
 client.close()

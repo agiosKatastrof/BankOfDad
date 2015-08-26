@@ -1,17 +1,12 @@
 import pymongo
 import datetime
 from pymongo import MongoClient
+import json
 
 amt = -1
 
-
-usersmapRev = {
-  'dad' : "cKM3ENqak9wenR75W",
-  'Jet' : "gYzdjntuyqWHtGihL",
-  'Elias' : "hhy3c45Wei94pQ3iu",
-  'Lorien' : "AJdvgWqhvGpwc4vri",
-  'Galadriel' : "cdAq6ZMEfnB3H8TXS"
-}
+umap = open('private/usersmapRev.json').read()
+usersmapRev = json.loads(umap)
 
 def doOffering(username,db,amt):
     print username, " offering ", amt
@@ -19,22 +14,25 @@ def doOffering(username,db,amt):
                 'amount':amt,
                 'type':'offering',
                 'createdAt': datetime.datetime.now(),
-                'owner': usersmapRev[username]
+                'owner': usersmapRev[username]["id"]
                 }
     
     db.transactions.insert_one(transaction).inserted_id
 
 
 print "Connecting..."
+creds = open('private/creds.json').read()
+j = json.loads(creds)
 
-client = MongoClient('mongodb://nagisa:jetTheD0g@localhost:3001/meteor')
+dbstr = 'mongodb://' + j['user'] + ':' + j['pw'] + '@localhost:3001/meteor'
+client = MongoClient(dbstr)
 db = client.meteor
 print "Connected to: ", db.client
 
 doOffering('Jet',db,amt)
-doOffering('Lorien',db,amt)
-doOffering('Galadriel',db,amt)
-doOffering('Elias',db,amt)
+#doOffering('Lorien',db,amt)
+#doOffering('Galadriel',db,amt)
+#doOffering('Elias',db,amt)
 
 
 
