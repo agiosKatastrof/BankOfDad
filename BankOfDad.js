@@ -1,5 +1,3 @@
-//m = JSON.parse(Assets.getText("lib/usersmap.json"))
-
 usersmap = {
   "cKM3ENqak9wenR75W" : {name: 'dad', admin: true},
   "gYzdjntuyqWHtGihL" : {name: 'Jet', admin: false},
@@ -27,6 +25,7 @@ Accounts.config({
 });
 
 if (Meteor.isServer) {
+      
   Meteor.publish("transactions", function () {
     
     if (isAdmin(this.userId)) {
@@ -121,6 +120,9 @@ if (Meteor.isClient) {
 
 Meteor.methods({
   addTransaction: function (amount, user) {
+    
+      m = JSON.parse(Assets.getText("usersmapRev.json"));
+  console.log(m);
     
     console.log("User: " + user + ", Amount: " + amount);
     
