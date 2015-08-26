@@ -9,7 +9,7 @@ usersmap = {
 Transactions = new Mongo.Collection("transactions");
 
 function isAdmin(userId) {
-  ///usersmap = JSON.parse(Assets.getText("usersmap.json"));
+///usersmap = JSON.parse(Assets.getText("usersmap.json"));
   return usersmap[userId].admin;
 }
 
@@ -20,7 +20,7 @@ Accounts.config({
 if (Meteor.isServer) {
       
   Meteor.publish("transactions", function () {
-    
+        
     if (isAdmin(this.userId)) {
         return Transactions.find();
     } else {
@@ -95,6 +95,8 @@ if (Meteor.isClient) {
       return this.owner === Meteor.userId();
     },
     isAdmin: function () {
+        m = JSON.parse(Assets.getText("usersmap.json"));
+        console.log(m)
       return isAdmin(Meteor.userId());
     }
   });
