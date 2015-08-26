@@ -30,8 +30,7 @@ if (Meteor.isServer) {
     });      
   });
       
-  Meteor.publish("transactions", function () {
-        
+  Meteor.publish("transactions", function () {       
     if (checkAdmin(this.userId)) {
         return Transactions.find();
     } else {
@@ -41,7 +40,6 @@ if (Meteor.isServer) {
           ]
         });
     }
-
   });
 }
 
@@ -75,7 +73,7 @@ if (Meteor.isClient) {
       var totalSumArray = [];
       
       for (var u in totalSum) {
-        totalSumArray.push({name:u, total:totalSum[u]})
+        totalSumArray.push({name:u, total:totalSum[u].toFixed(2)})
       }
       return totalSumArray;
     },
