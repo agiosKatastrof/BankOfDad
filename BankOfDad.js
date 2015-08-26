@@ -48,7 +48,7 @@ if (Meteor.isServer) {
 if (Meteor.isClient) {
   // This code only runs on the client
   Meteor.subscribe("transactions");
-  
+      
   Template.body.helpers({
     transactions: function () {
       return Transactions.find({}, {sort: {createdAt: -1}});
@@ -79,8 +79,16 @@ if (Meteor.isClient) {
       }
       return totalSumArray;
     },
-    isAdmin: function () {
-      return isAdmin(Meteor.userId());
+    'showSumsForAdmin': function () {
+		Meteor.call('isAdmin', Meteor.userId(), function(err,response) {
+			if(err) {
+				Session.set('serverDataResponse', "Error:" + err.reason);
+				return;
+			}
+            console.log(Meteor.userId() + " admin?: " + response);
+			Session.set('serverDataResponse', response);
+		});
+        return Session.get('serverDataResponse') || "";
     }
   });
 
@@ -104,11 +112,6 @@ if (Meteor.isClient) {
   Template.transaction.helpers({
     isOwner: function () {
       return this.owner === Meteor.userId();
-    },
-    isAdmin: function () {
-        m = JSON.parse(Assets.getText("usersmap.json"));
-        console.log(m)
-      return isAdmin(Meteor.userId());
     }
   });
 

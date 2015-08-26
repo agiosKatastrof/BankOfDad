@@ -9,8 +9,9 @@
 
       {{> loginButtons}}
     <hr>
+      Here {{showSumsForAdmin}} There
       {{#if currentUser}}
-        {{#if showForAdmin1}}
+        {{#if showSumsForAdmin}}
           {{#each sumTransactionsEachUser}}
             <span>{{name}} : {{total}}</span><br>
           {{/each}}                 
@@ -43,7 +44,7 @@
 
 <template name="transaction">
   <li>
-    {{#if checkAdmin}}
+    {{#if showTransForAdmin}}
           <button class="delete">&times;</button>
           <span class="amount"><strong>${{amount}}</strong> | {{username}} | {{type}} | {{createdAt}}</span>
     {{else}}
