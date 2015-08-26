@@ -6,14 +6,6 @@ usersmap = {
   "cdAq6ZMEfnB3H8TXS" : {name: 'Galadriel', admin: false}
 }
 
-usersmapRev = {
-  'dad' : {id: "cKM3ENqak9wenR75W", admin: true},
-  'Jet' : {id: "gYzdjntuyqWHtGihL", admin: false},
-  'Elias' : {id: "hhy3c45Wei94pQ3iu", admin: false},
-  'Lorien' : {id: "AJdvgWqhvGpwc4vri", admin: false},
-  'Galadriel' : {id: "cdAq6ZMEfnB3H8TXS", admin: false}
-}
-
 Transactions = new Mongo.Collection("transactions");
 
 function isAdmin(userId) {
@@ -121,9 +113,8 @@ if (Meteor.isClient) {
 Meteor.methods({
   addTransaction: function (amount, user) {
     
-      m = JSON.parse(Assets.getText("usersmapRev.json"));
-  console.log(m);
-    
+  usersmapRev = JSON.parse(Assets.getText("usersmapRev.json"));
+
     console.log("User: " + user + ", Amount: " + amount);
     
     // Make sure the user is logged in before inserting a transaction
