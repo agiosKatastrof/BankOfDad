@@ -5,7 +5,7 @@ import json
 
 amt = -1
 
-umap = open('private/usersmapRev.json').read()
+umap = open('/home/joe/BankOfDad/private/usersmapRev.json').read()
 usersmapRev = json.loads(umap)
 
 def doOffering(username,db,amt):
@@ -21,7 +21,7 @@ def doOffering(username,db,amt):
 
 
 print "Connecting..."
-creds = open('private/creds.json').read()
+creds = open('/home/joe/BankOfDad/private/creds.json').read()
 j = json.loads(creds)
 
 dbstr = 'mongodb://' + j['user'] + ':' + j['pw'] + '@localhost:3001/meteor'
@@ -30,9 +30,9 @@ db = client.meteor
 print "Connected to: ", db.client
 
 doOffering('Jet',db,amt)
-#doOffering('Lorien',db,amt)
-#doOffering('Galadriel',db,amt)
-#doOffering('Elias',db,amt)
+doOffering('Lorien',db,amt)
+doOffering('Galadriel',db,amt)
+doOffering('Elias',db,amt)
 
 
 

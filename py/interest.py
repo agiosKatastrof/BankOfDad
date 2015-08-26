@@ -49,9 +49,9 @@ db = client.meteor
 print "Connected to: ", db.client
 
 doTotal('Jet',db,range)
-#doTotal('Lorien',db,range)
-#doTotal('Galadriel',db,range)
-#doTotal('Elias',db,range)
+doTotal('Lorien',db,range)
+doTotal('Galadriel',db,range)
+doTotal('Elias',db,range)
 
 print "Exiting..."
 client.close()
