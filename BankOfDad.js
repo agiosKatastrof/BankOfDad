@@ -112,6 +112,17 @@ if (Meteor.isClient) {
   Template.transaction.helpers({
     isOwner: function () {
       return this.owner === Meteor.userId();
+    },
+    'showTransForAdmin': function () {
+		Meteor.call('isAdmin', Meteor.userId(), function(err,response) {
+			if(err) {
+				Session.set('serverDataResponse', "Error:" + err.reason);
+				return;
+			}
+            console.log(Meteor.userId() + " admin?: " + response);
+			Session.set('serverDataResponse', response);
+		});
+        return Session.get('serverDataResponse') || "";
     }
   });
 
@@ -129,9 +140,7 @@ if (Meteor.isClient) {
 
 Meteor.methods({
   addTransaction: function (amount, user) {
-    
-  usersmapRev = JSON.parse(Assets.getText("usersmapRev.json"));
-
+    usersmapRev = JSON.parse(Assets.getText("usersmapRev.json"));
     console.log("User: " + user + ", Amount: " + amount);
     
     // Make sure the user is logged in before inserting a transaction
