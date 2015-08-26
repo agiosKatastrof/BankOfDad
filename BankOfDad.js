@@ -9,6 +9,7 @@ usersmap = {
 Transactions = new Mongo.Collection("transactions");
 
 function isAdmin(userId) {
+  ///usersmap = JSON.parse(Assets.getText("usersmap.json"));
   return usersmap[userId].admin;
 }
 
