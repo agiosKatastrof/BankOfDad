@@ -6,3 +6,6 @@
 #
 # runs once a day, calculates daily sum
 30 7 * * * /usr/bin/python /home/joe/BankOfDad/py/daily.py
+#
+# runs once a month, adobe and other monthly transactions
+30 8 1 * * /usr/bin/python /home/joe/BankOfDad/py/monthly.py

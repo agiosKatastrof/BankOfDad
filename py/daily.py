@@ -36,7 +36,5 @@ doTotal('Lorien',db)
 doTotal('Galadriel',db)
 doTotal('Elias',db)
 
-
-
 print "Exiting..."
 client.close()
