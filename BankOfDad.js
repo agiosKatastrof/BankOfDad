@@ -16,7 +16,7 @@ if (Meteor.isServer) {
       isAdmin: function (userId) {
         usersmap = JSON.parse(Assets.getText("usersmap.json"));
         val =  usersmap[userId].admin;
-        console.log("UserId: " + userId + " val: " + val);
+       // console.log("UserId: " + userId + " val: " + val);
         return val;
       }
     });      
@@ -75,7 +75,7 @@ if (Meteor.isClient) {
 				Session.set('serverDataResponse', "Error:" + err.reason);
 				return;
 			}
-            console.log(Meteor.userId() + " admin?: " + response);
+         //   console.log(Meteor.userId() + " admin?: " + response);
 			Session.set('serverDataResponse', response);
 		});
         return Session.get('serverDataResponse') || "";
@@ -109,7 +109,7 @@ if (Meteor.isClient) {
 				Session.set('serverDataResponse', "Error:" + err.reason);
 				return;
 			}
-            console.log(Meteor.userId() + " admin?: " + response);
+       //     console.log(Meteor.userId() + " admin?: " + response);
 			Session.set('serverDataResponse', response);
 		});
         return Session.get('serverDataResponse') || "";
